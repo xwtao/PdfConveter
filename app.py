@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file, render_template
+from flask import Flask, request, jsonify, send_file, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
 import os
 import logging
@@ -26,6 +26,7 @@ app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  # 10MB max-limit
 app.config['STATS_FILE'] = 'stats.json'
 app.config['FEEDBACK_FILE'] = 'feedback.json'
+app.config['VERSION'] = '1.0.2'  # 添加版本号配置
 
 # 邮件配置
 app.config['MAIL_ENABLED'] = True  # 是否启用邮件通知
@@ -142,10 +143,14 @@ def generate_short_hash(filename):
     return hashlib.md5(filename.encode()).hexdigest()[:5]
 
 @app.route('/')
-def index():
-    logger.debug("Accessing index page")
+def redirect_to_version():
+    return redirect(url_for('index_with_version', version=app.config['VERSION']))
+
+@app.route('/v<version>')
+def index_with_version(version):
+    logger.debug(f"Accessing index page version {version}")
     stats = load_stats()
-    return render_template('convert.html', stats=stats)
+    return render_template('convert.html', stats=stats, version=version)
 
 @app.route('/health')
 def health_check():
