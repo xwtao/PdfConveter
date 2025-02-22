@@ -16,7 +16,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
     pip install --no-cache-dir numpy==1.24.3 && \
     pip install --no-cache-dir python-fire==0.3.0 && \
-    pip install --no-cache-dir PyMuPDF==1.18.19 && \
+    pip install --no-cache-dir PyMuPDF==1.21.1 && \
     pip install --no-cache-dir -r requirements.txt
 
 # 复制应用代码
