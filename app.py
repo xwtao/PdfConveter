@@ -19,8 +19,8 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__, 
-    template_folder='templates',  # 指定模板目录
-    static_folder='static'  # 指定静态文件目录
+    template_folder='app/templates',  # 指定模板目录
+    static_folder='app/static'  # 指定静态文件目录
 )
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  # 10MB max-limit
@@ -41,10 +41,10 @@ app.config['MAIL_ADMIN'] = os.environ.get('MAIL_ADMIN', 'xwtaos@163.com')  # 管
 
 # 确保必要的目录存在
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-os.makedirs('templates', exist_ok=True)
-os.makedirs('static', exist_ok=True)
+os.makedirs('app/templates', exist_ok=True)
+os.makedirs('app/static', exist_ok=True)
 logger.info(f"Upload directory created at: {os.path.abspath(app.config['UPLOAD_FOLDER'])}")
-logger.info(f"Template directory: {os.path.abspath('templates')}")
+logger.info(f"Template directory: {os.path.abspath('app/templates')}")
 
 def load_stats():
     """加载统计数据"""
