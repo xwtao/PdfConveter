@@ -145,7 +145,7 @@ def generate_short_hash(filename):
 def index():
     logger.debug("Accessing index page")
     stats = load_stats()
-    return render_template('index.html', stats=stats)
+    return render_template('convert.html', stats=stats)
 
 @app.route('/health')
 def health_check():
