@@ -31,12 +31,12 @@ def upload_file():
     if request.method == 'POST':
         if 'file' not in request.files:
             flash('没有选择文件')
-            return render_template('index.html')
+            return render_template('convert.html')
         
         file = request.files['file']
         if file.filename == '':
             flash('没有选择文件')
-            return render_template('index.html')
+            return render_template('convert.html')
         
         if file and allowed_file(file.filename):
             try:
@@ -79,15 +79,15 @@ def upload_file():
                     safe_remove_file(docx_path)
                     safe_remove_file(temp_docx)
                     flash(f'转换失败：{str(e)}')
-                    return render_template('index.html')
+                    return render_template('convert.html')
             except Exception as e:
                 flash(f'文件处理失败：{str(e)}')
-                return render_template('index.html')
+                return render_template('convert.html')
         else:
             flash('不支持的文件格式，请上传PDF文件')
-            return render_template('index.html')
+            return render_template('convert.html')
             
-    return render_template('index.html')
+    return render_template('convert.html')
 
 if __name__ == '__main__':
     app.run(debug=True) 
