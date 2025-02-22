@@ -1,8 +1,15 @@
 {
-  "total_requests": 5,
-  "success_count": 5,
+  "total_requests": 6,
+  "success_count": 6,
   "fail_count": 0,
   "requests": [
+    {
+      "timestamp": "2025-02-22 21:34:37",
+      "filename": "ca96a",
+      "success": true,
+      "ip": "127.0.0.1",
+      "file_size": 1263320
+    },
     {
       "timestamp": "2025-02-22 20:35:16",
       "filename": "ca96a",

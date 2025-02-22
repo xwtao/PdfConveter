@@ -1,0 +1,20 @@
+{
+  "total_requests": 2,
+  "success_count": 2,
+  "fail_count": 0,
+  "requests": [
+    {
+      "timestamp": "2025-02-22 22:20:23",
+      "filename": "ca96a",
+      "success": true,
+      "ip": "127.0.0.1",
+      "file_size": 1263320
+    },
+    {
+      "timestamp": "2025-02-22 22:10:11",
+      "filename": "API1.32.pdf",
+      "success": true,
+      "ip": "127.0.0.1"
+    }
+  ]
+}

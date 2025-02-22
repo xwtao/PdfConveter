@@ -7,6 +7,25 @@
     <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <meta name="version" content="{{ version }}">
     <style>
+        /* 禁用移动端长按选中 */
+        * {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* 允许输入框选中 */
+        input, textarea {
+            -webkit-user-select: text;
+            -khtml-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
         .file-input-wrapper {
             position: relative;
             overflow: hidden;
@@ -64,6 +83,7 @@
             background: rgba(255, 255, 255, 0.1);
             animation: float 15s infinite linear;
             z-index: -1;
+            pointer-events: none;
         }
         
         body::before {
@@ -137,6 +157,7 @@
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            touch-action: manipulation;
         }
 
         .btn-gradient:hover {
@@ -154,6 +175,7 @@
             background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
             transform: rotate(45deg);
             animation: shine 3s infinite;
+            pointer-events: none;
         }
 
         @keyframes shine {
@@ -202,6 +224,7 @@
         .convert-btn {
             background: linear-gradient(45deg, #4F94CD, #87CEFA);
             transition: all 0.4s ease;
+            touch-action: manipulation;
         }
 
         .convert-btn:hover:not(:disabled) {
@@ -213,11 +236,39 @@
         .feedback-btn {
             background: linear-gradient(45deg, #4F94CD, #87CEFA);
             transition: all 0.4s ease;
+            touch-action: manipulation;
         }
 
         .feedback-btn:hover:not(:disabled) {
             background: linear-gradient(45deg, #87CEFA, #4F94CD);
             transform: translateY(-2px);
+        }
+
+        /* 添加反馈表单样式 */
+        .feedback-form {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+            max-width: 90%;
+            width: 400px;
+        }
+
+        .feedback-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
         }
     </style>
 </head>
@@ -372,7 +423,7 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">
                             反馈类型
                         </label>
-                        <select id="feedbackType" 
+                        <select id="feedbackTypeInput" 
                                 class="w-full border border-gray-300 rounded-md shadow-sm px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
                             <option value="suggestion">功能建议</option>
                             <option value="bug">问题反馈</option>
@@ -383,7 +434,7 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">
                             反馈内容
                         </label>
-                        <textarea id="feedbackContent" 
+                        <textarea id="feedbackContentInput" 
                                  rows="3" 
                                  class="w-full border border-gray-300 rounded-md shadow-sm px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
                                  placeholder="请详细描述您的建议或遇到的问题..."></textarea>
@@ -393,7 +444,7 @@
                             联系方式（选填）
                         </label>
                         <input type="text" 
-                               id="feedbackContact" 
+                               id="feedbackContactInput" 
                                class="w-full border border-gray-300 rounded-md shadow-sm px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
                                placeholder="QQ/微信/手机号，方便我们回复您">
                     </div>
@@ -617,26 +668,26 @@
             setTimeout(updateStats, 1000);
         }
 
-        // 提交反馈
+        // 修改反馈提交函数
         async function submitFeedback() {
-            const type = document.getElementById('feedbackType').value;
-            const content = document.getElementById('feedbackContent').value.trim();
-            const contact = document.getElementById('feedbackContact').value.trim();
-            
-            if (!content) {
-                showError('请输入反馈内容');
+            const type = document.getElementById('feedbackTypeInput').value;
+            const content = document.getElementById('feedbackContentInput').value;
+            const contact = document.getElementById('feedbackContactInput').value;
+
+            if (!content.trim()) {
+                alert('请输入反馈内容');
                 return;
             }
 
-            const feedbackButton = document.getElementById('feedbackButton');
-            feedbackButton.disabled = true;
-            feedbackButton.textContent = '提交中...';
+            const button = document.getElementById('feedbackButton');
+            button.disabled = true;
+            button.textContent = '提交中...';
 
             try {
                 const response = await fetch('/feedback', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
                         type,
@@ -645,23 +696,18 @@
                     })
                 });
 
-                if (!response.ok) {
-                    throw new Error('提交失败');
-                }
-
                 const result = await response.json();
-                alert(result.message);
+                alert(result.message || '感谢您的反馈！');
                 
                 // 清空表单
-                document.getElementById('feedbackContent').value = '';
-                document.getElementById('feedbackContact').value = '';
-
+                document.getElementById('feedbackContentInput').value = '';
+                document.getElementById('feedbackContactInput').value = '';
             } catch (error) {
                 console.error('Error:', error);
-                showError('提交失败，请稍后重试');
+                alert('提交反馈时出现错误，请稍后重试');
             } finally {
-                feedbackButton.disabled = false;
-                feedbackButton.textContent = '提交反馈';
+                button.disabled = false;
+                button.textContent = '提交反馈';
             }
         }
     </script>
