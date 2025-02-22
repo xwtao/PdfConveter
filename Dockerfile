@@ -10,20 +10,20 @@ RUN apt-get update && apt-get install -y \
 
 # 复制项目文件
 COPY requirements.txt .
-COPY . .
-
-# 安装Python依赖
 RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
 
 # 设置环境变量
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
+ENV PORT=8080
 
 # 创建上传目录
 RUN mkdir -p uploads temp
 
-# 暴露端口
-EXPOSE 8080
+# 设置权限
+RUN chmod -R 777 uploads temp
 
 # 启动命令
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"] 
+CMD gunicorn --bind 0.0.0.0:$PORT app:app 
