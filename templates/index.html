@@ -29,29 +29,248 @@
             25% { transform: translateX(-10px); }
             75% { transform: translateX(10px); }
         }
+        
+        /* 更新背景样式为柔和的天蓝色渐变 */
+        body {
+            background: linear-gradient(-45deg, #87CEEB, #00BFFF, #B0E0E6, #87CEFA);
+            background-size: 400% 400%;
+            animation: gradient 30s ease infinite;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        /* 添加动态背景元素 */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 15s infinite linear;
+            z-index: -1;
+        }
+        
+        body::before {
+            top: -100px;
+            left: -100px;
+            animation-delay: -7.5s;
+        }
+        
+        body::after {
+            bottom: -100px;
+            right: -100px;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(100px, 100px) rotate(180deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+        }
+        
+        .container > div {
+            transition: transform 0.3s ease;
+        }
+        
+        .container > div:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* 更新卡片样式 */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.4s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(31, 38, 135, 0.3);
+        }
+
+        /* 美化上传区域 */
+        #dropZone {
+            background: linear-gradient(145deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+            border: 2px dashed rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        #dropZone:hover {
+            border-color: rgba(99, 102, 241, 0.8);
+            background: linear-gradient(145deg, rgba(255,255,255,0.7), rgba(255,255,255,0.5));
+        }
+
+        /* 更新按钮样式为柔和的蓝色渐变 */
+        .btn-gradient {
+            background: linear-gradient(45deg, #4F94CD, #87CEFA);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gradient:hover {
+            background: linear-gradient(45deg, #87CEFA, #4F94CD);
+            transform: translateY(-2px);
+        }
+
+        .btn-gradient::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+
+        /* 更新统计数字样式 */
+        .stat-number {
+            background: linear-gradient(45deg, #4F94CD, #87CEFA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* 添加动画效果 */
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 更新进度条样式 */
+        .progress-bar {
+            background: linear-gradient(90deg, #4F94CD, #87CEFA);
+            box-shadow: 0 0 10px rgba(79, 148, 205, 0.5);
+        }
+
+        /* 更新标题颜色 */
+        .title-gradient {
+            background: linear-gradient(to right, #4F94CD, #87CEFA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 更新转换按钮样式 */
+        .convert-btn {
+            background: linear-gradient(45deg, #4F94CD, #87CEFA);
+            transition: all 0.4s ease;
+        }
+
+        .convert-btn:hover:not(:disabled) {
+            background: linear-gradient(45deg, #87CEFA, #4F94CD);
+            transform: translateY(-2px);
+        }
+
+        /* 更新反馈按钮 */
+        .feedback-btn {
+            background: linear-gradient(45deg, #4F94CD, #87CEFA);
+            transition: all 0.4s ease;
+        }
+
+        .feedback-btn:hover:not(:disabled) {
+            background: linear-gradient(45deg, #87CEFA, #4F94CD);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <div class="max-w-xl mx-auto bg-white rounded-lg shadow-lg p-6">
-            <h1 class="text-2xl font-bold text-center mb-8">PDF转Word工具</h1>
+<body class="min-h-screen flex items-center justify-center py-12">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <div class="max-w-3xl mx-auto card p-8 mb-8 animate-fade-in">
+            <h1 class="text-3xl font-bold text-center mb-6 title-gradient">PDF转Word工具</h1>
+            
+            <!-- 功能说明列表 -->
+            <div class="mb-8 max-w-md mx-auto bg-white/50 p-4 rounded-lg">
+                <ul class="list-none space-y-3 text-gray-700">
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>支持PDF文件转换为Word格式</span>
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>单个文件大小限制为10MB</span>
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>转换完成后自动下载</span>
+                    </li>
+                    <li class="flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>所有文件在转换后立即删除，保证安全</span>
+                    </li>
+                </ul>
+            </div>
             
             <!-- 文件上传区域 -->
-            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center mb-6" 
-                 id="dropZone">
+            <div class="p-8 text-center mb-6 rounded-xl" id="dropZone" onclick="document.getElementById('fileInput').click()">
                 <div class="file-input-wrapper">
-                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg disabled:opacity-50"
+                    <button type="button"
+                            class="btn-gradient text-white font-semibold py-3 px-6 rounded-lg shadow-lg disabled:opacity-50"
                             id="selectButton">
                         选择PDF文件
                     </button>
                     <input type="file" 
                            id="fileInput" 
                            accept=".pdf" 
-                           class="hidden" 
+                           style="display: none;"
                            onchange="handleFileSelect(event)">
                 </div>
-                <p class="mt-2 text-sm text-gray-500">或将文件拖放到此处</p>
-                <p class="mt-1 text-xs text-gray-400">支持最大100MB的PDF文件</p>
+                <p class="mt-4 text-gray-600">或将文件拖放到此处</p>
+                <p class="mt-2 text-sm text-gray-500">支持最大10MB的PDF文件</p>
             </div>
 
             <!-- 文件信息显示区域 -->
@@ -77,7 +296,7 @@
             <button onclick="convertFile()" 
                     id="convertButton"
                     disabled
-                    class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                    class="w-full convert-btn text-white font-semibold py-3 px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">
                 转换为Word
             </button>
 
@@ -98,19 +317,19 @@
         </div>
 
         <!-- 统计面板 -->
-        <div class="max-w-xl mx-auto bg-white rounded-lg shadow-lg p-6 mb-6">
-            <div class="grid grid-cols-3 gap-4 mb-6">
-                <div class="text-center">
-                    <div class="text-2xl font-bold text-blue-600" id="totalRequests">{{ stats.total_requests }}</div>
-                    <div class="text-sm text-gray-500">总请求数</div>
+        <div class="max-w-3xl mx-auto glass-effect rounded-lg shadow-lg p-6 mb-6 card">
+            <div class="grid grid-cols-3 gap-6 mb-6">
+                <div class="text-center p-4 rounded-lg bg-white/50">
+                    <div class="stat-number" id="totalRequests">{{ stats.total_requests }}</div>
+                    <div class="text-gray-600 mt-2">总请求数</div>
                 </div>
-                <div class="text-center">
-                    <div class="text-2xl font-bold text-green-600" id="successCount">{{ stats.success_count }}</div>
-                    <div class="text-sm text-gray-500">成功转换</div>
+                <div class="text-center p-4 rounded-lg bg-white/50">
+                    <div class="stat-number text-green-600" id="successCount">{{ stats.success_count }}</div>
+                    <div class="text-gray-600 mt-2">成功转换</div>
                 </div>
-                <div class="text-center">
-                    <div class="text-2xl font-bold text-red-600" id="failCount">{{ stats.fail_count }}</div>
-                    <div class="text-sm text-gray-500">失败次数</div>
+                <div class="text-center p-4 rounded-lg bg-white/50">
+                    <div class="stat-number text-red-600" id="failCount">{{ stats.fail_count }}</div>
+                    <div class="text-gray-600 mt-2">失败次数</div>
                 </div>
             </div>
 
@@ -118,10 +337,10 @@
             <div class="mt-6">
                 <h3 class="text-lg font-semibold mb-4">最近转换记录</h3>
                 <div class="space-y-3" id="recentRequests">
-                    {% for request in stats.requests[:5] %}
+                    {% for request in stats.requests[:10] %}
                     <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <div class="flex-1">
-                            <div class="text-sm font-medium">{{ request.filename or '未知文件' }}</div>
+                            <div class="text-sm font-medium text-gray-900">文件编号：{{ request.filename or '未知' }}</div>
                             <div class="text-xs text-gray-500">{{ request.timestamp }}</div>
                         </div>
                         <div class="ml-4">
@@ -136,14 +355,78 @@
                 </div>
             </div>
         </div>
+
+        <!-- 反馈面板 -->
+        <div class="max-w-3xl mx-auto glass-effect rounded-lg shadow-lg p-4 text-sm mb-6 card">
+            <details class="cursor-pointer">
+                <summary class="font-semibold text-gray-700 hover:text-gray-900 focus:outline-none flex items-center justify-between">
+                    <span>问题反馈与合作</span>
+                    <span class="text-xs text-blue-600">个人开发者，期待您的建议</span>
+                </summary>
+                <div class="mt-4 space-y-3">
+                    <div class="text-xs text-gray-500 mb-3 p-2 bg-gray-50 rounded">
+                        本工具由个人开发者维护，欢迎提供建议或洽谈合作机会
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            反馈类型
+                        </label>
+                        <select id="feedbackType" 
+                                class="w-full border border-gray-300 rounded-md shadow-sm px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                            <option value="suggestion">功能建议</option>
+                            <option value="bug">问题反馈</option>
+                            <option value="cooperation">商务合作</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            反馈内容
+                        </label>
+                        <textarea id="feedbackContent" 
+                                 rows="3" 
+                                 class="w-full border border-gray-300 rounded-md shadow-sm px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                 placeholder="请详细描述您的建议或遇到的问题..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            联系方式（选填）
+                        </label>
+                        <input type="text" 
+                               id="feedbackContact" 
+                               class="w-full border border-gray-300 rounded-md shadow-sm px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                               placeholder="QQ/微信/手机号，方便我们回复您">
+                    </div>
+                    <button onclick="submitFeedback()" 
+                            id="feedbackButton"
+                            class="w-full feedback-btn text-white font-semibold py-1 px-3 rounded-md text-sm">
+                        提交反馈
+                    </button>
+                </div>
+            </details>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="max-w-3xl mx-auto text-center text-gray-700 text-sm py-4">
+            <p>© 2025 PDF转换工具 | 个人开发者作品</p>
+            <p class="mt-1">本工具仅用于文件格式转换，请勿上传违规内容</p>
+        </footer>
     </div>
 
     <script>
-        const maxFileSize = 100 * 1024 * 1024; // 100MB
+        const maxFileSize = 10 * 1024 * 1024; // 10MB
         let currentFile = null;
 
         // 文件拖放处理
         const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const selectButton = document.getElementById('selectButton');
+
+        // 点击按钮触发文件选择
+        selectButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // 阻止事件冒泡
+            fileInput.click();
+        });
+
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             dropZone.addEventListener(eventName, preventDefaults, false);
         });
@@ -194,7 +477,7 @@
 
             // 检查文件大小
             if (file.size > maxFileSize) {
-                showError('文件大小不能超过100MB');
+                showError('文件大小不能超过10MB');
                 return;
             }
 
@@ -311,7 +594,7 @@
                     recentRequestsDiv.innerHTML = data.recent_requests.map(request => `
                         <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                             <div class="flex-1">
-                                <div class="text-sm font-medium">${request.filename || '未知文件'}</div>
+                                <div class="text-sm font-medium text-gray-900">文件编号：${request.filename || '未知'}</div>
                                 <div class="text-xs text-gray-500">${request.timestamp}</div>
                             </div>
                             <div class="ml-4">
@@ -331,6 +614,54 @@
         // 在转换完成后立即更新统计
         function updateStatsAfterConversion(success) {
             setTimeout(updateStats, 1000);
+        }
+
+        // 提交反馈
+        async function submitFeedback() {
+            const type = document.getElementById('feedbackType').value;
+            const content = document.getElementById('feedbackContent').value.trim();
+            const contact = document.getElementById('feedbackContact').value.trim();
+            
+            if (!content) {
+                showError('请输入反馈内容');
+                return;
+            }
+
+            const feedbackButton = document.getElementById('feedbackButton');
+            feedbackButton.disabled = true;
+            feedbackButton.textContent = '提交中...';
+
+            try {
+                const response = await fetch('/feedback', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        type,
+                        content,
+                        contact
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('提交失败');
+                }
+
+                const result = await response.json();
+                alert(result.message);
+                
+                // 清空表单
+                document.getElementById('feedbackContent').value = '';
+                document.getElementById('feedbackContact').value = '';
+
+            } catch (error) {
+                console.error('Error:', error);
+                showError('提交失败，请稍后重试');
+            } finally {
+                feedbackButton.disabled = false;
+                feedbackButton.textContent = '提交反馈';
+            }
         }
     </script>
 </body>

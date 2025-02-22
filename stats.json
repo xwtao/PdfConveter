@@ -1,0 +1,35 @@
+{
+  "total_requests": 4,
+  "success_count": 4,
+  "fail_count": 0,
+  "requests": [
+    {
+      "timestamp": "2025-02-22 17:19:29",
+      "filename": "ca96a",
+      "success": true,
+      "ip": "127.0.0.1",
+      "file_size": 1263320
+    },
+    {
+      "timestamp": "2025-02-22 17:16:22",
+      "filename": "API1.32_ca96a.pdf",
+      "success": true,
+      "ip": "127.0.0.1",
+      "file_size": 1263320
+    },
+    {
+      "timestamp": "2025-02-22 17:04:23",
+      "filename": "API1.32.pdf",
+      "success": true,
+      "ip": "127.0.0.1",
+      "file_size": 1263320
+    },
+    {
+      "timestamp": "2025-02-22 16:53:25",
+      "filename": "API1.32.pdf",
+      "success": true,
+      "ip": "127.0.0.1",
+      "file_size": 1263320
+    }
+  ]
+}
