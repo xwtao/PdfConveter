@@ -3,7 +3,7 @@ services:
     name: pdf-converter
     env: python
     buildCommand: |
-      apt-get update && apt-get install -y build-essential python3-dev
+      apt-get update && apt-get install -y build-essential libgl1-mesa-glx libglib2.0-0 python3-dev
       pip install --upgrade pip setuptools wheel
       pip install -r requirements.txt
     startCommand: gunicorn app:app --timeout 120

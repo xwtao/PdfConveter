@@ -5,6 +5,8 @@ WORKDIR /app
 # 安装系统依赖
 RUN apt-get update && apt-get install -y \
     build-essential \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
     python3-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
