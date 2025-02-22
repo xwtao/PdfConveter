@@ -11,6 +11,8 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import hashlib
+import threading
+import glob
 
 # 配置日志
 logging.basicConfig(level=logging.DEBUG)
@@ -269,7 +271,47 @@ def submit_feedback():
 
     return jsonify({'message': '感谢您的反馈！'})
 
+def cleanup_uploads():
+    """每5分钟清理一次uploads目录中的文件，只清理超过5分钟未访问的文件"""
+    while True:
+        try:
+            # 获取uploads目录下的所有文件
+            files = glob.glob(os.path.join(app.config['UPLOAD_FOLDER'], '*'))
+            current_time = time.time()
+            
+            # 删除超过5分钟未访问的文件
+            for file_path in files:
+                try:
+                    if os.path.exists(file_path):
+                        # 获取文件最后访问时间
+                        last_access_time = os.path.getatime(file_path)
+                        # 如果文件超过5分钟未访问，则删除
+                        if current_time - last_access_time > 300:  # 300秒 = 5分钟
+                            os.remove(file_path)
+                            logger.info(f"Cleaned up file: {file_path} (last accessed: {datetime.fromtimestamp(last_access_time)})")
+                except Exception as e:
+                    logger.error(f"Error cleaning up file {file_path}: {e}")
+            
+            # 每5分钟执行一次
+            time.sleep(300)
+        except Exception as e:
+            logger.error(f"Error in cleanup thread: {e}")
+            time.sleep(300)  # 发生错误时也等待5分钟后继续
+
+@app.after_request
+def add_header(response):
+    """添加响应头以防止缓存"""
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, proxy-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
+
 if __name__ == '__main__':
+    # 启动清理线程
+    cleanup_thread = threading.Thread(target=cleanup_uploads, daemon=True)
+    cleanup_thread.start()
+    logger.info("Started uploads cleanup thread")
+    
     # 设置最大内容长度为100MB
     app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
     # 运行应用

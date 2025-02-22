@@ -16,7 +16,22 @@ services:
         value: production
       - key: PYTHONUNBUFFERED
         value: "true"
+      - key: DEPLOYMENT_VERSION
+        value: "1.0.1"
     disk:
       name: uploads
       mountPath: /app/uploads
-      sizeGB: 1 
+      sizeGB: 1
+    healthCheckPath: /health
+    healthCheckTimeout: 300
+    autoDeploy: true
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-store, no-cache, must-revalidate, proxy-revalidate
+      - path: /*
+        name: Pragma
+        value: no-cache
+      - path: /*
+        name: Expires
+        value: "0" 
