@@ -8,15 +8,21 @@ import json
 import logging
 import threading
 import glob
-from datetime import datetime
+from datetime import datetime, timedelta
+import pytz
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import hashlib
+from urllib.parse import quote
+from werkzeug.datastructures import Headers
 
 # 配置日志
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+
+# 设置时区为北京时间
+beijing_tz = pytz.timezone('Asia/Shanghai')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-here'
@@ -72,7 +78,7 @@ def update_stats(filename, success, error_msg=None):
         stats["fail_count"] = stats.get("fail_count", 0) + 1
 
     request_info = {
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "timestamp": datetime.now(beijing_tz).strftime("%Y-%m-%d %H:%M:%S"),
         "filename": filename,
         "success": success,
         "ip": request.remote_addr,
@@ -142,39 +148,47 @@ def generate_short_hash(filename):
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def safe_remove_file(file_path):
-    try:
-        if os.path.exists(file_path):
-            os.remove(file_path)
-    except Exception as e:
-        logger.error(f"清理文件失败: {str(e)}")
+def safe_remove_file(file_path, max_retries=3, delay=1):
+    """安全删除文件，带重试机制"""
+    for i in range(max_retries):
+        try:
+            if os.path.exists(file_path):
+                os.remove(file_path)
+                logger.debug(f"Successfully removed file: {file_path}")
+                return True
+        except Exception as e:
+            if i < max_retries - 1:
+                logger.warning(f"Attempt {i+1} to remove file failed: {e}")
+                time.sleep(delay)
+            else:
+                logger.error(f"Failed to remove file after {max_retries} attempts: {e}")
+    return False
 
 def cleanup_uploads():
-    """每5分钟清理一次uploads目录中的文件，只清理超过5分钟未访问的文件"""
+    """每5分钟清理一次uploads目录中的文件，只清理超过10分钟未访问的文件"""
     while True:
         try:
+            time.sleep(300)  # 先等待5分钟再开始清理
+            
             # 获取uploads目录下的所有文件
             files = glob.glob(os.path.join(app.config['UPLOAD_FOLDER'], '*'))
             current_time = time.time()
             
-            # 删除超过5分钟未访问的文件
             for file_path in files:
                 try:
                     if os.path.exists(file_path):
                         # 获取文件最后访问时间
                         last_access_time = os.path.getatime(file_path)
-                        # 如果文件超过5分钟未访问，则删除
-                        if current_time - last_access_time > 300:  # 300秒 = 5分钟
-                            os.remove(file_path)
-                            logger.info(f"Cleaned up file: {file_path} (last accessed: {datetime.fromtimestamp(last_access_time)})")
+                        # 如果文件超过10分钟未访问，则尝试删除
+                        if current_time - last_access_time > 600:  # 600秒 = 10分钟
+                            if safe_remove_file(file_path):
+                                logger.info(f"Cleaned up old file: {file_path}")
                 except Exception as e:
-                    logger.error(f"Error cleaning up file {file_path}: {e}")
-            
-            # 每5分钟执行一次
-            time.sleep(300)
+                    logger.error(f"Error checking file {file_path}: {e}")
+                    
         except Exception as e:
             logger.error(f"Error in cleanup thread: {e}")
-            time.sleep(300)  # 发生错误时也等待5分钟后继续
+            time.sleep(300)
 
 @app.route('/')
 def redirect_to_version():
@@ -221,13 +235,21 @@ def convert():
         update_stats(None, False, '未选择文件')
         return jsonify({'error': '未选择文件'}), 400
 
+    pdf_path = None
+    docx_path = None
+    
     try:
-        original_filename = secure_filename(file.filename)
-        short_hash = generate_short_hash(original_filename)
+        # 保留原始文件名（用于生成下载时的文件名）
+        original_filename = file.filename
+        # 生成安全的文件名用于存储
+        safe_filename = secure_filename(original_filename)
+        short_hash = generate_short_hash(safe_filename)
         
         # 使用短哈希值作为文件名
         filename = f"{short_hash}.pdf"
         docx_filename = f"{short_hash}.docx"
+        # 生成下载时显示的文件名（保留原始文件名）
+        display_filename = os.path.splitext(original_filename)[0] + '.docx'
         
         logger.info(f"Processing file: {filename}")
         
@@ -245,43 +267,52 @@ def convert():
         logger.debug("Conversion completed")
         
         # 删除PDF文件
-        os.remove(pdf_path)
+        safe_remove_file(pdf_path)
         logger.debug("Removed original PDF file")
-        
-        @after_this_request
-        def remove_docx(response):
-            try:
-                if os.path.exists(docx_path):
-                    os.remove(docx_path)
-                    logger.debug("Removed converted DOCX file")
-            except Exception as e:
-                logger.error(f"Error removing DOCX file: {e}")
-            return response
         
         # 更新统计信息，使用短哈希值作为文件名
         update_stats(short_hash, True)
         logger.info("Conversion successful")
-        
-        # 返回转换后的文件
-        return send_file(
-            docx_path,
-            as_attachment=True,
-            download_name=docx_filename,
-            mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-        )
+
+        try:
+            # 使用send_file发送文件
+            response = send_file(
+                docx_path,
+                as_attachment=True,
+                download_name=display_filename,
+                mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            )
+
+            # 添加必要的响应头
+            response.headers.add('Access-Control-Expose-Headers', 'Content-Disposition')
+            response.headers.add('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0')
+            response.headers.add('Pragma', 'no-cache')
+            response.headers.add('Expires', '0')
+
+            # 延迟删除文件
+            def delayed_remove():
+                time.sleep(5)  # 等待5秒后再删除
+                safe_remove_file(docx_path)
+                
+            threading.Thread(target=delayed_remove, daemon=True).start()
+            
+            return response
+
+        except Exception as e:
+            logger.error(f"Error sending file: {e}")
+            safe_remove_file(docx_path)
+            return jsonify({'error': '文件下载失败，请重试'}), 500
 
     except Exception as e:
         error_msg = str(e)
         logger.error(f"Conversion error: {error_msg}")
         # 清理可能存在的临时文件
-        for path in [pdf_path, docx_path]:
-            try:
-                if os.path.exists(path):
-                    os.remove(path)
-                    logger.debug(f"Cleaned up file: {path}")
-            except:
-                pass
-        update_stats(file.filename, False, error_msg)
+        if pdf_path and os.path.exists(pdf_path):
+            safe_remove_file(pdf_path)
+        if docx_path and os.path.exists(docx_path):
+            safe_remove_file(docx_path)
+        # 使用短哈希值作为文件名记录失败
+        update_stats(short_hash, False, error_msg)
         return jsonify({'error': error_msg}), 500
 
 @app.route('/feedback', methods=['POST'])
@@ -295,7 +326,7 @@ def submit_feedback():
         'type': data['type'],  # 'suggestion' 或 'bug'
         'content': data['content'],
         'contact': data.get('contact', ''),  # 可选的联系方式
-        'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'timestamp': datetime.now(beijing_tz).strftime('%Y-%m-%d %H:%M:%S'),
         'ip': request.remote_addr
     }
 
