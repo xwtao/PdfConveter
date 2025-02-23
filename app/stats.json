@@ -1,8 +1,291 @@
 {
-  "total_requests": 62,
-  "success_count": 42,
-  "fail_count": 20,
+  "total_requests": 99,
+  "success_count": 55,
+  "fail_count": 44,
   "requests": [
+    {
+      "timestamp": "2025-02-24 00:05:18",
+      "filename": "883c7",
+      "success": true,
+      "ip": "192.168.227.235",
+      "file_size": 5504484
+    },
+    {
+      "timestamp": "2025-02-24 00:02:50",
+      "filename": "783a9",
+      "success": true,
+      "ip": "192.168.227.235",
+      "file_size": 2627033
+    },
+    {
+      "timestamp": "2025-02-24 00:00:04",
+      "filename": "43cc5",
+      "success": true,
+      "ip": "192.168.227.235",
+      "file_size": 4193988
+    },
+    {
+      "timestamp": "2025-02-23 23:59:24",
+      "filename": "ca96a",
+      "success": true,
+      "ip": "192.168.227.235",
+      "file_size": 1263320
+    },
+    {
+      "timestamp": "2025-02-23 23:59:07",
+      "filename": "d3b32",
+      "success": true,
+      "ip": "192.168.227.235",
+      "file_size": 208513
+    },
+    {
+      "timestamp": "2025-02-23 23:37:25",
+      "filename": "cbc06",
+      "success": true,
+      "ip": "192.168.227.235",
+      "file_size": 556847
+    },
+    {
+      "timestamp": "2025-02-23 23:34:29",
+      "filename": "91cab",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 6143628,
+      "error": "unsupported colorspace for '{output}'"
+    },
+    {
+      "timestamp": "2025-02-23 23:34:22",
+      "filename": "91cab",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 6143628,
+      "error": "unsupported colorspace for '{output}'"
+    },
+    {
+      "timestamp": "2025-02-23 23:33:44",
+      "filename": "ca96a",
+      "success": true,
+      "ip": "192.168.227.235",
+      "file_size": 1263320
+    },
+    {
+      "timestamp": "2025-02-23 23:31:12",
+      "filename": "ca96a",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 1263320,
+      "error": "Can't pickle local object 'convert.<locals>.progress_callback'"
+    },
+    {
+      "timestamp": "2025-02-23 23:26:30",
+      "filename": "ca96a",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 1263320,
+      "error": "Can't pickle local object 'convert.<locals>.progress_callback'"
+    },
+    {
+      "timestamp": "2025-02-23 23:17:08",
+      "filename": "783a9",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 2627033,
+      "error": "'Converter' object has no attribute 'get_page_count'"
+    },
+    {
+      "timestamp": "2025-02-23 23:14:11",
+      "filename": "ca96a",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 1263320,
+      "error": "'Converter' object has no attribute 'pdf_file'"
+    },
+    {
+      "timestamp": "2025-02-23 23:06:22",
+      "filename": "45ca4",
+      "success": true,
+      "ip": "192.168.227.235",
+      "file_size": 4142480
+    },
+    {
+      "timestamp": "2025-02-23 23:04:56",
+      "filename": "d87e4",
+      "success": true,
+      "ip": "192.168.227.235",
+      "file_size": 1073682
+    },
+    {
+      "timestamp": "2025-02-23 23:00:50",
+      "filename": "d3b32",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 208513,
+      "error": "'ocr'"
+    },
+    {
+      "timestamp": "2025-02-23 22:56:23",
+      "filename": "32ad8",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 230112,
+      "error": "'ocr'"
+    },
+    {
+      "timestamp": "2025-02-23 22:55:03",
+      "filename": "ca96a",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 1263320,
+      "error": "'ocr'"
+    },
+    {
+      "timestamp": "2025-02-23 22:50:40",
+      "filename": "783a9",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 2627033,
+      "error": "'ocr'"
+    },
+    {
+      "timestamp": "2025-02-23 22:49:23",
+      "filename": "783a9",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 2627033,
+      "error": "'ocr'"
+    },
+    {
+      "timestamp": "2025-02-23 22:47:27",
+      "filename": "ca96a",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 1263320,
+      "error": "'ocr'"
+    },
+    {
+      "timestamp": "2025-02-23 11:07:42",
+      "filename": "45ca4",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 4142480,
+      "error": "'ocr'"
+    },
+    {
+      "timestamp": "2025-02-23 11:05:53",
+      "filename": "783a9",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 2627033,
+      "error": "'ocr'"
+    },
+    {
+      "timestamp": "2025-02-23 10:54:05",
+      "filename": "783a9",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 2627033,
+      "error": "'ocr'"
+    },
+    {
+      "timestamp": "2025-02-23 10:49:44",
+      "filename": "783a9",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 2627033,
+      "error": "'ocr'"
+    },
+    {
+      "timestamp": "2025-02-23 10:48:15",
+      "filename": "783a9",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 2627033,
+      "error": "'Converter' object has no attribute 'get_page_count'"
+    },
+    {
+      "timestamp": "2025-02-23 10:47:52",
+      "filename": "1450f",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 5244687,
+      "error": "cannot open broken document"
+    },
+    {
+      "timestamp": "2025-02-23 10:47:01",
+      "filename": "ba265",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 5627207,
+      "error": "__enter__"
+    },
+    {
+      "timestamp": "2025-02-23 10:46:42",
+      "filename": "ba265",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 5627207,
+      "error": "__enter__"
+    },
+    {
+      "timestamp": "2025-02-23 10:43:15",
+      "filename": "783a9",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 2627033,
+      "error": "'Converter' object has no attribute 'pdf'"
+    },
+    {
+      "timestamp": "2025-02-23 10:41:11",
+      "filename": "43cc5",
+      "success": true,
+      "ip": "192.168.227.235",
+      "file_size": 4193988
+    },
+    {
+      "timestamp": "2025-02-23 10:39:52",
+      "filename": "783a9",
+      "success": true,
+      "ip": "192.168.227.235",
+      "file_size": 2627033
+    },
+    {
+      "timestamp": "2025-02-23 10:38:31",
+      "filename": "1450f",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 5244687,
+      "error": "cannot open broken document"
+    },
+    {
+      "timestamp": "2025-02-23 10:37:56",
+      "filename": "91cab",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 6143628,
+      "error": "unsupported colorspace for '{output}'"
+    },
+    {
+      "timestamp": "2025-02-23 10:37:25",
+      "filename": "1450f",
+      "success": false,
+      "ip": "192.168.227.235",
+      "file_size": 5244687,
+      "error": "cannot open broken document"
+    },
+    {
+      "timestamp": "2025-02-23 10:30:25",
+      "filename": "cbf97",
+      "success": true,
+      "ip": "192.168.227.235",
+      "file_size": 9502637
+    },
+    {
+      "timestamp": "2025-02-23 10:29:18",
+      "filename": "783a9",
+      "success": true,
+      "ip": "192.168.227.235",
+      "file_size": 2627033
+    },
     {
       "timestamp": "2025-02-23 10:22:59",
       "filename": "e819b",
@@ -94,279 +377,6 @@
       "ip": "192.168.227.235",
       "file_size": 192081,
       "error": "Failed to open file 'D:\\\\Projects\\\\pdf\\\\app\\\\uploads\\\\af219.pdf'."
-    },
-    {
-      "timestamp": "2025-02-23 09:58:18",
-      "filename": "1450f",
-      "success": false,
-      "ip": "192.168.227.235",
-      "file_size": 5244687,
-      "error": "Failed to open file 'D:\\\\Projects\\\\pdf\\\\app\\\\uploads\\\\1450f.pdf'."
-    },
-    {
-      "timestamp": "2025-02-23 09:57:52",
-      "filename": "af219",
-      "success": false,
-      "ip": "192.168.227.235",
-      "file_size": 192081,
-      "error": "Failed to open file 'D:\\\\Projects\\\\pdf\\\\app\\\\uploads\\\\af219.pdf'."
-    },
-    {
-      "timestamp": "2025-02-23 09:57:31",
-      "filename": "af219",
-      "success": false,
-      "ip": "192.168.227.235",
-      "file_size": 192081,
-      "error": "Failed to open file 'D:\\\\Projects\\\\pdf\\\\app\\\\uploads\\\\af219.pdf'."
-    },
-    {
-      "timestamp": "2025-02-23 09:54:51",
-      "filename": "af219",
-      "success": false,
-      "ip": "192.168.227.235",
-      "file_size": 192081,
-      "error": "Failed to open file 'D:\\\\Projects\\\\pdf\\\\app\\\\uploads\\\\af219.pdf'."
-    },
-    {
-      "timestamp": "2025-02-23 09:52:56",
-      "filename": "ca96a",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 1263320
-    },
-    {
-      "timestamp": "2025-02-23 09:51:52",
-      "filename": "af219",
-      "success": false,
-      "ip": "192.168.227.235",
-      "file_size": 192081,
-      "error": "Failed to open file 'D:\\\\Projects\\\\pdf\\\\app\\\\uploads\\\\af219.pdf'."
-    },
-    {
-      "timestamp": "2025-02-23 09:51:45",
-      "filename": "af219",
-      "success": false,
-      "ip": "192.168.227.235",
-      "file_size": 192081,
-      "error": "Failed to open file 'D:\\\\Projects\\\\pdf\\\\app\\\\uploads\\\\af219.pdf'."
-    },
-    {
-      "timestamp": "2025-02-23 09:51:11",
-      "filename": "af219",
-      "success": false,
-      "ip": "192.168.227.235",
-      "file_size": 192081,
-      "error": "Failed to open file 'D:\\\\Projects\\\\pdf\\\\app\\\\uploads\\\\af219.pdf'."
-    },
-    {
-      "timestamp": "2025-02-23 09:50:42",
-      "filename": "af219",
-      "success": false,
-      "ip": "192.168.227.235",
-      "file_size": 192081,
-      "error": "Failed to open file 'D:\\\\Projects\\\\pdf\\\\app\\\\uploads\\\\af219.pdf'."
-    },
-    {
-      "timestamp": "2025-02-23 09:50:05",
-      "filename": "af219",
-      "success": false,
-      "ip": "192.168.227.235",
-      "file_size": 192081,
-      "error": "Failed to open file 'D:\\\\Projects\\\\pdf\\\\app\\\\uploads\\\\af219.pdf'."
-    },
-    {
-      "timestamp": "2025-02-23 09:49:58",
-      "filename": "af219",
-      "success": false,
-      "ip": "192.168.227.235",
-      "file_size": 192081,
-      "error": "Failed to open file 'D:\\\\Projects\\\\pdf\\\\app\\\\uploads\\\\af219.pdf'."
-    },
-    {
-      "timestamp": "2025-02-23 09:44:28",
-      "filename": "af219",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 348096
-    },
-    {
-      "timestamp": "2025-02-23 09:43:11",
-      "filename": "af219",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 348096
-    },
-    {
-      "timestamp": "2025-02-23 09:42:49",
-      "filename": "32ad8",
-      "success": false,
-      "ip": "192.168.227.235",
-      "file_size": 230112,
-      "error": "code=4: cannot find builtin font with name 'Arial'"
-    },
-    {
-      "timestamp": "2025-02-23 09:39:31",
-      "filename": "99822",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 221820
-    },
-    {
-      "timestamp": "2025-02-23 09:39:26",
-      "filename": "99822",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 221820
-    },
-    {
-      "timestamp": "2025-02-23 00:16:39",
-      "filename": "1450f",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 1292916
-    },
-    {
-      "timestamp": "2025-02-23 00:15:56",
-      "filename": "62ac2",
-      "success": false,
-      "ip": "192.168.227.235",
-      "file_size": 331708,
-      "error": "code=4: cannot find builtin font with name 'Arial'"
-    },
-    {
-      "timestamp": "2025-02-23 00:15:31",
-      "filename": "32ad8",
-      "success": false,
-      "ip": "192.168.227.235",
-      "file_size": 230112,
-      "error": "code=4: cannot find builtin font with name 'Arial'"
-    },
-    {
-      "timestamp": "2025-02-23 00:14:40",
-      "filename": "1450f",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 1292916
-    },
-    {
-      "timestamp": "2025-02-23 00:09:30",
-      "filename": "af219",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 348096
-    },
-    {
-      "timestamp": "2025-02-23 00:07:55",
-      "filename": "af219",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 348096
-    },
-    {
-      "timestamp": "2025-02-23 00:05:11",
-      "filename": "1450f",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 1292916
-    },
-    {
-      "timestamp": "2025-02-23 00:04:10",
-      "filename": "1450f",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 1292916
-    },
-    {
-      "timestamp": "2025-02-23 00:03:29",
-      "filename": "1450f",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 1292916
-    },
-    {
-      "timestamp": "2025-02-22 23:56:43",
-      "filename": "af219",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 348096
-    },
-    {
-      "timestamp": "2025-02-22 23:55:47",
-      "filename": "1450f",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 1292916
-    },
-    {
-      "timestamp": "2025-02-22 23:53:45",
-      "filename": "1450f",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 1292916
-    },
-    {
-      "timestamp": "2025-02-22 23:53:21",
-      "filename": "af219",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 348096
-    },
-    {
-      "timestamp": "2025-02-22 23:52:48",
-      "filename": "af219",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 348096
-    },
-    {
-      "timestamp": "2025-02-22 23:50:25",
-      "filename": "1450f",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 1292916
-    },
-    {
-      "timestamp": "2025-02-22 23:46:52",
-      "filename": "af219",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 348096
-    },
-    {
-      "timestamp": "2025-02-22 23:46:46",
-      "filename": "af219",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 348096
-    },
-    {
-      "timestamp": "2025-02-22 23:41:29",
-      "filename": "1450f",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 1292916
-    },
-    {
-      "timestamp": "2025-02-22 23:39:14",
-      "filename": "883c7",
-      "success": true,
-      "ip": "192.168.227.235",
-      "file_size": 5504484
-    },
-    {
-      "timestamp": "2025-02-22 23:36:45",
-      "filename": "61cec",
-      "success": false,
-      "ip": "192.168.227.235",
-      "file_size": 193983,
-      "error": "code=4: cannot find builtin font with name 'Arial'"
-    },
-    {
-      "timestamp": "2025-02-22 23:31:55",
-      "filename": "ca96a",
-      "success": true,
-      "ip": "127.0.0.1",
-      "file_size": 1263320
     }
   ]
 }
