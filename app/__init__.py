@@ -24,31 +24,56 @@ logger = logging.getLogger(__name__)
 # 设置时区为北京时间
 beijing_tz = pytz.timezone('Asia/Shanghai')
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key-here'
-app.config['UPLOAD_FOLDER'] = os.path.abspath(os.path.join(os.path.dirname(__file__), 'uploads'))
-app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  # 10MB max-limit
-app.config['STATS_FILE'] = os.path.join(os.path.dirname(__file__), 'stats.json')
-app.config['FEEDBACK_FILE'] = os.path.join(os.path.dirname(__file__), 'feedback.json')
-app.config['VERSION'] = '1.0.2'  # 添加版本号配置
+def create_app():
+    app = Flask(__name__, 
+                template_folder='templates',
+                static_folder='static')
+    
+    # 确保必要的文件存在
+    stats_file = os.path.join(app.root_path, 'stats.json')
+    feedback_file = os.path.join(app.root_path, 'feedback.json')
+    
+    if not os.path.exists(stats_file):
+        with open(stats_file, 'w', encoding='utf-8') as f:
+            json.dump({
+                "total_requests": 0,
+                "success_count": 0,
+                "fail_count": 0,
+                "requests": []
+            }, f, ensure_ascii=False, indent=2)
+    
+    if not os.path.exists(feedback_file):
+        with open(feedback_file, 'w', encoding='utf-8') as f:
+            json.dump([], f, ensure_ascii=False, indent=2)
+    
+    app.config['SECRET_KEY'] = 'your-secret-key-here'
+    app.config['UPLOAD_FOLDER'] = os.path.abspath(os.path.join(os.path.dirname(__file__), 'uploads'))
+    app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  # 10MB max-limit
+    app.config['STATS_FILE'] = stats_file
+    app.config['FEEDBACK_FILE'] = feedback_file
+    app.config['VERSION'] = '1.0.2'  # 添加版本号配置
 
-# 邮件配置
-app.config['MAIL_ENABLED'] = True  # 是否启用邮件通知
-app.config['MAIL_SERVER'] = 'smtp.163.com'  # 网易邮箱服务器
-app.config['MAIL_PORT'] = 465  # 网易邮箱SSL端口
-app.config['MAIL_USE_SSL'] = True  # 使用SSL
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'xwt_1234@163.com')  # 从环境变量获取邮箱地址
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', 'RHjnD37NJvbenczd')  # 从环境变量获取授权码
-app.config['MAIL_DEFAULT_SENDER'] = 'xwt_1234@163.com'  # 发件人需要是完整的邮箱地址
-app.config['MAIL_ADMIN'] = os.environ.get('MAIL_ADMIN', 'xwtaos@163.com')  # 管理员邮箱
+    # 邮件配置
+    app.config['MAIL_ENABLED'] = True  # 是否启用邮件通知
+    app.config['MAIL_SERVER'] = 'smtp.163.com'  # 网易邮箱服务器
+    app.config['MAIL_PORT'] = 465  # 网易邮箱SSL端口
+    app.config['MAIL_USE_SSL'] = True  # 使用SSL
+    app.config['MAIL_USE_TLS'] = False
+    app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'xwt_1234@163.com')  # 从环境变量获取邮箱地址
+    app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', 'RHjnD37NJvbenczd')  # 从环境变量获取授权码
+    app.config['MAIL_DEFAULT_SENDER'] = 'xwt_1234@163.com'  # 发件人需要是完整的邮箱地址
+    app.config['MAIL_ADMIN'] = os.environ.get('MAIL_ADMIN', 'xwtaos@163.com')  # 管理员邮箱
 
-# 确保必要的目录存在
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-logger.info(f"Upload directory created at: {os.path.abspath(app.config['UPLOAD_FOLDER'])}")
-logger.info(f"Template directory: {os.path.abspath('app/templates')}")
+    # 确保必要的目录存在
+    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+    logger.info(f"Upload directory created at: {os.path.abspath(app.config['UPLOAD_FOLDER'])}")
+    logger.info(f"Template directory: {os.path.abspath('app/templates')}")
 
-ALLOWED_EXTENSIONS = {'pdf'}
+    ALLOWED_EXTENSIONS = {'pdf'}
+
+    return app
+
+app = create_app()
 
 def load_stats():
     """加载统计数据"""

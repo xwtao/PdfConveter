@@ -19,8 +19,8 @@ services:
       - key: DEPLOYMENT_VERSION
         value: "1.0.2"
     disk:
-      name: uploads
-      mountPath: /app/uploads
+      name: data
+      mountPath: /app/app
       sizeGB: 1
     healthCheckPath: /health
     healthCheckTimeout: 300

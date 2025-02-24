@@ -660,7 +660,7 @@
             document.getElementById('convertButton').disabled = true;
 
             try {
-                updateProgress(0, '正在转换文件...');
+                updateProgress(20, '正在上传文件...');
                 
                 const response = await fetch('/convert', {
                     method: 'POST',
@@ -671,6 +671,8 @@
                     const errorData = await response.json();
                     throw new Error(errorData.error || '转换失败');
                 }
+
+                updateProgress(60, '正在转换文件...');
 
                 // 获取文件名和内容
                 const contentDisposition = response.headers.get('Content-Disposition');
@@ -700,7 +702,7 @@
                     return;
                 }
 
-                updateProgress(100, '转换完成！');
+                updateProgress(90, '准备下载...');
 
                 // 创建正确类型的 Blob
                 const docxBlob = new Blob([blob], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
@@ -721,6 +723,7 @@
                     document.body.removeChild(a);
                 }
 
+                updateProgress(100, '转换完成！');
                 setTimeout(() => {
                     progressContainer.classList.add('hidden');
                     document.getElementById('convertButton').disabled = false;
