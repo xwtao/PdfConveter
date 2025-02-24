@@ -61,5 +61,3 @@ uploads/
 temp/
 # 排除所有 JSON 文件，但保留统计和反馈记录
 *.json
-!app/stats.json
-!app/feedback.json
